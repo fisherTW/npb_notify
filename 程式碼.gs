@@ -1,3 +1,5 @@
+// moment.js required
+var moment = Moment.moment;
 Logger = BetterLog.useSpreadsheet('1IleoLsNHA58sQhsOG0vi9pMSDLvzCt98RaUp9gvO6-w');
 var sheet_setting	= '1UJ6XNl7dnEbX0L2XU9Ybpwp3UeezIbfCpEl_WUDdBhY';
 var url_auth		= 'https://notify-bot.line.me/oauth/token';
@@ -12,17 +14,18 @@ function doGet(e) {
 	var accToken = getAccToken(code);
 	
 	writeDb('1700', accToken);
-
-	//notify(acc, '提醒：精彩直播 馬上開始');
 }
 
 function checkDbAndNotify() {
 	var spreadsheet = SpreadsheetApp.openById(sheet_setting);
 	var sheet = spreadsheet.getSheets()[1];
-	var y = getFirstEmptyRowWholeRow();
-	y = (y > 1) ? (y-1) : y;
-	var ret = sheet.getSheetValues(y,2,1,1);
-	Logger.log(ret);
+	var ret = sheet.getSheetValues(1,1,sheet.getLastRow(),sheet.getLastColumn());
+	for(var i=0; i < ret.length; i++) {
+		// do this 30 min before
+		if(moment(moment().add(1, 'h').valueOf()).format('HH') + '00' == ret[i][0]) {
+			notify(ret[i][1], '提醒：精彩直播 馬上開始');
+		}
+	}
 }
 
 function writeDb(notifyTime, accToken) {
