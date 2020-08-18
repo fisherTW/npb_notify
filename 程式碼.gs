@@ -16,6 +16,15 @@ function doGet(e) {
 	//notify(acc, '提醒：精彩直播 馬上開始');
 }
 
+function checkDbAndNotify() {
+	var spreadsheet = SpreadsheetApp.openById(sheet_setting);
+	var sheet = spreadsheet.getSheets()[1];
+	var y = getFirstEmptyRowWholeRow();
+	y = (y > 1) ? (y-1) : y;
+	var ret = sheet.getSheetValues(y,2,1,1);
+	Logger.log(ret);
+}
+
 function writeDb(notifyTime, accToken) {
 	var spreadsheet = SpreadsheetApp.openById(sheet_setting);
 	var sheet = spreadsheet.getSheets()[1];
