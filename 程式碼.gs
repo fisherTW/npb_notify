@@ -13,7 +13,7 @@ function doGet(e) {
 	var code = e.parameter.code;
 	var accToken = getAccToken(code);
 	
-	writeDb('1700', accToken);
+	writeDb(e.parameter.time, accToken);
 }
 
 function checkDbAndNotify() {
