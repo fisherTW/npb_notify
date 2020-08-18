@@ -11,14 +11,17 @@ function doGet(e) {
 	var code = e.parameter.code;
 	var acc = getAccToken(code);
 	
-	notify(acc, '提醒：精彩直播 馬上開始');
+	writeDb('1700', accToken);
+
+	//notify(acc, '提醒：精彩直播 馬上開始');
 }
 
 function writeDb(notifyTime, accToken) {
 	var spreadsheet = SpreadsheetApp.openById(sheet_setting);
 	var sheet = spreadsheet.getSheets()[1];
-	sheet.getRange("a1").setValue(notifyTime);
-	sheet.getRange("b1").setValue(accToken);
+	var row_to_write = getFirstEmptyRowWholeRow();
+	sheet.getRange("a"+row_to_write).setValue(notifyTime);
+	sheet.getRange("b"+row_to_write).setValue(accToken);
 }
 
 function getFirstEmptyRowWholeRow() {
