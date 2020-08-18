@@ -14,6 +14,25 @@ function doGet(e) {
 	notify(acc, '提醒：精彩直播 馬上開始');
 }
 
+function writeDb(notifyTime, accToken) {
+	var spreadsheet = SpreadsheetApp.openById(sheet_setting);
+	var sheet = spreadsheet.getSheets()[1];
+	sheet.getRange("a1").setValue(notifyTime);
+	sheet.getRange("b1").setValue(accToken);
+}
+
+function getFirstEmptyRowWholeRow() {
+	var spreadsheet = SpreadsheetApp.openById(sheet_setting);
+	var sheet = spreadsheet.getSheets()[1];
+	var range = sheet.getDataRange();
+	var values = range.getValues();
+	var row = 0;
+	for (var row=0; row<values.length; row++) {
+	  if (!values[row].join("")) break;
+	}
+	return (row+1);
+}
+
 function getAccToken(code) {
 	var ret = '';
 
