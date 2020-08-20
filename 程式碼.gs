@@ -11,7 +11,7 @@ var client_secret	= getSetting(2, 2);
 // after subscribe button click
 function doGet(e) {
 	var code = e.parameter.code;
-	var userId = e.source.userId;
+	var userId = e.parameter.state;
 	var accToken = getAccToken(code);
 	
 	writeDb(userId, accToken);
