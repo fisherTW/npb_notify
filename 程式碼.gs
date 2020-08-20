@@ -11,9 +11,11 @@ var client_secret	= getSetting(2, 2);
 // after subscribe button click
 function doGet(e) {
 	var code = e.parameter.code;
+	var userId = e.source.userId;
 	var accToken = getAccToken(code);
 	
-	writeDb(e.parameter.time, accToken);
+	writeDb(userId, accToken);
+	console.log('訂閱成功');
 }
 
 function checkDbAndNotify() {
@@ -31,11 +33,11 @@ function checkDbAndNotify() {
 	}
 }
 
-function writeDb(notifyTime, accToken) {
+function writeDb(userId, accToken) {
 	var spreadsheet = SpreadsheetApp.openById(sheet_setting);
 	var sheet = spreadsheet.getSheets()[1];
 	var row_to_write = getFirstEmptyRowWholeRow();
-	sheet.getRange("a"+row_to_write).setValue(notifyTime);
+	sheet.getRange("a"+row_to_write).setValue(userId);
 	sheet.getRange("b"+row_to_write).setValue(accToken);
 }
 
