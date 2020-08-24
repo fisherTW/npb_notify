@@ -26,12 +26,10 @@ function checkDbAndNotify() {
 	var sheet = spreadsheet.getSheets()[1];
 	var ret = sheet.getSheetValues(1,1,sheet.getLastRow(),sheet.getLastColumn());
 	for(var i=0; i < ret.length; i++) {
-		// do this 30 min before
-		if(moment(moment().add(1, 'h').valueOf()).format('HH') + '00' == ret[i][0]) {
+		if(moment(moment().valueOf()).format('HH') + ':00' == ret[i][2]) {
 			notify(ret[i][1], '提醒：精彩直播 馬上開始');
 		} else {
-			sheet.getRange("c"+(i+1)).setValue(moment(moment().add(1, 'h').valueOf()).format('HH') + '00');
-			sheet.getRange("d"+(i+1)).setValue(ret[i][0]);
+			sheet.getRange("d"+(i+1)).setValue(moment(moment().valueOf()).format('HH') + ':00');
 		}
 	}
 }
