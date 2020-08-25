@@ -20,7 +20,7 @@ function doGet(e) {
 	writeDb(userId, accToken);
 	
 	var t = HtmlService.createTemplateFromFile('ok.html');
-	t.data = '訂閱成功';
+	t.data = '連動成功，可以開始使用提醒功能囉！';
 	return t.evaluate();
 }
 
