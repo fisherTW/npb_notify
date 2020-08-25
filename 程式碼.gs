@@ -13,8 +13,6 @@ function doGet(e) {
 	var code = e.parameter.code;
 	var userId = e.parameter.state;
 	Logger.log(JSON.stringify(e));
-	Logger.log('code=' + code);
-	Logger.log('userId=' + userId);
 	var accToken = getAccToken(code);
 	
 	writeDb(userId, accToken);
