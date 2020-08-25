@@ -18,7 +18,10 @@ function doGet(e) {
 	var accToken = getAccToken(code);
 	
 	writeDb(userId, accToken);
-	console.log('訂閱成功');
+	
+	var t = HtmlService.createTemplateFromFile('ok.html');
+	t.data = '訂閱成功';
+	return t.evaluate();
 }
 
 function checkDbAndNotify() {
